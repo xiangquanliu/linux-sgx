@@ -38,8 +38,7 @@ PLATFORM_VERSION:= $(shell awk '$$2 ~ /PLATFORM_VERSION/ { print substr($$3, 2, 
 EPID_VERSION:= $(shell awk '$$2 ~ /EPID_VERSION/ { print substr($$3, 2, length($$3) - 2); }' $(COMMON_DIR)/inc/internal/se_version.h)
 QUOTE_EX_VERSION:= $(shell awk '$$2 ~ /QUOTE_EX_VERSION/ { print substr($$3, 2, length($$3) - 2); }' $(COMMON_DIR)/inc/internal/se_version.h)
 
-PREBUILT_OPENSSL_DIR := $(LINUX_EXTERNAL_DIR)/dcap_source/prebuilt/openssl
-CRYPTO_LIB := -L$(PREBUILT_OPENSSL_DIR)/lib/linux64 -lcrypto
+CRYPTO_LIB := $(shell pkg-config --libs libcrypto)
 
 INCLUDES := -I..                                            \
             -I$(COMMON_DIR)/inc                             \
@@ -51,8 +50,7 @@ INCLUDES := -I..                                            \
             -I$(LINUX_EXTERNAL_DIR)/rdrand/                 \
             -I$(LINUX_PSW_DIR)/ae/inc                       \
             -I$(LINUX_PSW_DIR)/ae/inc/internal              \
-            -I$(LINUX_PSW_DIR)/ae/common                    \
-            -I$(PREBUILT_OPENSSL_DIR)/inc
+            -I$(LINUX_PSW_DIR)/ae/common
 
 
 CXXFLAGS += -Wall -fPIC $(INCLUDES) -Werror -g $(CET_FLAGS)

@@ -42,8 +42,7 @@ endif
 CXXFLAGS += -fPIC -DSE_SIM -Werror -g $(CET_FLAGS)
 CFLAGS   += -fPIC -DSE_SIM -Werror -g $(CET_FLAGS)
 
-PREBUILT_OPENSSL_DIR := $(LINUX_EXTERNAL_DIR)/dcap_source/prebuilt/openssl
-CRYPTO_LIB := -L$(PREBUILT_OPENSSL_DIR)/lib/linux64 -lcrypto
+CRYPTO_LIB := $(shell pkg-config --libs libcrypto)
 
 CPPFLAGS += $(ADDED_INC) #for ubuntu 11 and later version
 CPPFLAGS += -I$(COMMON_DIR)/inc                \
@@ -52,8 +51,7 @@ CPPFLAGS += -I$(COMMON_DIR)/inc                \
             -I$(LINUX_PSW_DIR)/urts            \
             -I$(LINUX_PSW_DIR)/urts/parser     \
             -I$(VTUNE_DIR)/include \
-            -I$(VTUNE_DIR)/sdk/src/ittnotify \
-            -I$(PREBUILT_OPENSSL_DIR)/inc
+            -I$(VTUNE_DIR)/sdk/src/ittnotify
 
 CPPFLAGS += -I$(COMMON_DIR)/inc/internal      \
             -I$(LINUX_PSW_DIR)/urts/linux     \

@@ -45,7 +45,6 @@ target_include_directories(utils PRIVATE
     ${PROJECT_SOURCE_DIR}/../../../../external/epid-sdk
     ${PROJECT_SOURCE_DIR}/../../../../external/rdrand
     ${PROJECT_SOURCE_DIR}/../../data/constants/linux
-    ${PROJECT_SOURCE_DIR}/../../../../external/dcap_source/prebuilt/openssl/inc
 )
 
 target_compile_definitions(utils PRIVATE
@@ -55,7 +54,7 @@ target_compile_definitions(utils PRIVATE
 set_property(TARGET utils APPEND_STRING PROPERTY LINK_FLAGS " -Wl,-z,defs")
 
 target_link_libraries(utils
-    ${PROJECT_SOURCE_DIR}/../../../../external/dcap_source/prebuilt/openssl/lib/linux64/libcrypto.a
+    crypto
     oal
     ${CMAKE_SOURCE_DIR}/../../../../external/rdrand/src/librdrand.a
 )
